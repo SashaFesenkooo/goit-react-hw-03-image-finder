@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 import { Component } from 'react';
-// import { toast } from 'react-toastify';
 
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 import Loader from 'components/Loader/Loader';
@@ -42,12 +41,10 @@ class ImageGallery extends Component {
     const prevSearch = prevProps.imageToQuery;
     const nextSearch = this.props.imageToQuery;
     const prevPage = prevState.page;
-    const currentPage = this.state.page;
+    let currentPage = this.state.page;
     const perPage = 12;
 
     let totalHits = 0;
-
-    // console.log(prevPage, currentPage);
 
     if (prevSearch !== nextSearch || prevPage !== currentPage) {
       this.setState({ pending: true });
@@ -56,6 +53,7 @@ class ImageGallery extends Component {
 
       if (prevSearch !== nextSearch) {
         this.setState({ images: [], page: 1 });
+        currentPage = 1;
       }
 
       if (currentPage === 1) {
@@ -89,7 +87,6 @@ class ImageGallery extends Component {
 
                 return item;
               }
-              // `<li><a href="${largeImageURL}"><img src="${webformatURL}"></a></li>`
             );
             return imagesCollection;
           })
@@ -101,20 +98,9 @@ class ImageGallery extends Component {
             });
             this.setState({ status: 'resolved' });
 
-            // console.log(totalHits, this.state.images.length + data.length);
             if (totalHits === this.state.images.length + data.length) {
-              // console.log('These are all search results');
               this.setState({ allSearchRes: true });
             }
-
-            // const { height: galleryBottom } = document
-            //   .querySelector('.ImageGallery')
-            //   .getBoundingClientRect();
-
-            // window.scrollBy({
-            //   top: galleryBottom - window.pageYOffset,
-            //   behavior: 'smooth',
-            // });
           })
           .catch(error => this.setState({ error, status: 'rejected' }))
           .finally(this.setState({ pending: false }));
@@ -161,10 +147,6 @@ class ImageGallery extends Component {
     }
 
     if (status === 'rejected') {
-      // toast.error(error.message, {
-      //   theme: 'colored',
-      //   toastId: 'badRequest',
-      // });
       return (
         <section className="Warning">
           <p>{error.message}</p>
@@ -173,10 +155,6 @@ class ImageGallery extends Component {
     }
 
     if (status === 'noresult') {
-      // toast.warning(error.message, {
-      //   theme: 'colored',
-      //   toastId: 'noResult',
-      // });
       return (
         <section className="Info">
           <p>{error.message}</p>;

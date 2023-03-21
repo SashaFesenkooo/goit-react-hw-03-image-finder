@@ -42,8 +42,6 @@ class ImageGallery extends Component {
     const currentPage = this.state.page;
     const perPage = 12;
 
-    // console.log(prevPage, currentPage);
-
     if (prevSearch !== nextSearch || prevPage !== currentPage) {
       this.setState({ pending: true });
 
@@ -80,7 +78,6 @@ class ImageGallery extends Component {
 
                 return item;
               }
-              // `<li><a href="${largeImageURL}"><img src="${webformatURL}"></a></li>`
             );
             return imagesCollection;
           })

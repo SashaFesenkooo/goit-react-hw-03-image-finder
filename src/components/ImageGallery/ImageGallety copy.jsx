@@ -48,7 +48,6 @@ class ImageGallery extends Component {
 
                 return item;
               }
-              // `<li><a href="${largeImageURL}"><img src="${webformatURL}"></a></li>`
             );
             return imagesCollection;
           })
